@@ -19,8 +19,12 @@ function Start() {
             displayModal();
             break;
     }
+
+    loadHeader(); // Load the header
+    loadFooter(); // Load the footer
 }
 
+window.addEventListener("load", Start);
 // CAROUSEL
 /**
  * Initializes the carousel functionality, setting up the rotation of images and their corresponding descriptions.
@@ -82,32 +86,32 @@ document.addEventListener('DOMContentLoaded', function() {
     let projects = [{
         title: 'Project One',
         description: 'A brief description of Project One.',
-        imageUrl: "Images/NY-SKYLINE.webp"
+        imageUrl: "../../Images/NY-SKYLINE.webp"
     },
         {
             title: 'Project Two',
             description: 'A brief description of Project Two.',
-            imageUrl: "Images/YYZ-SKYLINE.webp"
+            imageUrl: "../../Images/YYZ-SKYLINE.webp"
         },
         {
             title: 'Project Three',
             description: 'A brief description of Project Three.',
-            imageUrl: "Images/england_skyline.jpg"
+            imageUrl: "../../Images/england_skyline.jpg"
         },
         {
             title: 'Project Four',
             description: 'A brief description of Project Four.',
-            imageUrl: "Images/PWC_OFFICE.webp"
+            imageUrl: "../../Images/PWC_OFFICE.webp"
         },
         {
             title: 'Project Five',
             description: 'A brief description of Project Five.',
-            imageUrl: "Images/cup-team-photo-2023-2.png"
+            imageUrl: "../../Images/cup-team-photo-2023-2.png"
         },
         {
             title: 'Project Six',
             description: 'A brief description of Project Six.',
-            imageUrl: "Images/CVPRW2023_EventVision_group_picture.jpg"
+            imageUrl: "../../Images/CVPRW2023_EventVision_group_picture.jpg"
         }
     ];
 
@@ -194,3 +198,102 @@ function displayModal() {
         modalJoy._hideModal();
     });
 }
+
+function AJAX_REQUEST(method, url, callback)
+{
+    // Step 1:instantiate new XHR object
+    let xhr = new XMLHttpRequest();
+    // Step 2: open XHR request
+    xhr.open(method, url);
+
+    // Step 4: Add event listener for the readystatechange event
+    // This event is triggered when the state of a document being fetched changes
+    xhr.addEventListener("readystatechange", () =>
+    {
+        if(xhr.readyState === 4 && xhr.status === 200)
+        {
+            if(typeof callback == "function")
+            {
+                callback(xhr.responseText);
+            }
+            else
+            {
+                console.error("ERROR: CALLBACK NOT A FUNCTION");
+            }
+        }
+    });
+
+    // Step 3: send XHR request
+    xhr.send();
+
+
+}
+// Function to load the header
+function loadHeader() {
+    fetch('/views/components/header.html') // Use root-relative path
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('site-header').innerHTML = html;
+        })
+        .catch(error => {
+            console.warn('Error loading the header:', error);
+        });
+}
+
+// Function to load the footer
+function loadFooter() {
+    fetch('/views/components/footer.html') // Use root-relative path
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('site-footer').innerHTML = html;
+        })
+        .catch(error => {
+            console.warn('Error loading the footer:', error);
+        });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadHeader();
+    loadFooter();
+});
+
+// EVENTS
+
+document.addEventListener('DOMContentLoaded', function() {
+    const eventsContainer = document.getElementById('events-container');
+
+    let events = [
+        {
+            title: 'Family Reunion',
+            description: 'An enchanting evening where family ties are celebrated under the twilight and festive lights.',
+            imageUrl: "../../Images/TablewithLights.jpg"
+        },
+        {
+            title: 'TED TALK: Johnathan Dover',
+            description: 'A thought-provoking session where Johnathan Dover explores groundbreaking ideas in his field.',
+            imageUrl: "../../Images/conference.webp"
+        },
+        {
+            title: 'Wedding Ceremony',
+            description: 'A beautiful and solemn ceremony marking the union of two hearts in a setting of elegance.',
+            imageUrl: "../../Images/wedding.jpeg"
+        }
+        // Add more events here as needed
+    ];
+
+    events.forEach(event => {
+        let eventElement = document.createElement('div');
+        eventElement.className = 'col-md-4 mb-4';
+        eventElement.innerHTML = `
+            <div class="card">
+                <img src="${event.imageUrl}" class="card-img-top" alt="${event.title}">
+                <div class="card-body">
+                    <h5 class="card-title">${event.title}</h5>
+                    <p class="card-text">${event.description}</p>
+                </div>
+            </div>
+        `;
+
+        eventsContainer.appendChild(eventElement);
+    });
+});
