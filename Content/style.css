@@ -1,3 +1,21 @@
+:root {
+    --dark-bg-color: #333;
+    --primary-color: #007bff;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+.content {
+    flex: 1; /* Flexibly expands the content to push the footer down */
+}
+
+
 body
 {
     background-color: slategrey;
@@ -83,45 +101,60 @@ main p, main ul
     color: #0056b3;
 }
 
-footer
-{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
+footer {
+    background-color: var(--dark-bg-color);
     color: white;
+    padding: 20px;
+    text-align: center;
 }
+
+footer a {
+    color: inherit; /* Make sure links inherit the white color */
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+/* Responsive footer layout */
+@media (max-width: 768px) {
+    footer div {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+}
+
 
 /* Carousel Specific Styles */
-.carousel
-{
-    display: block; /* Ensures the carousel is a block-level element */
-    margin-top: 20px; /* Adjust as needed for spacing */
-    margin-left: auto; /* Automatically adjusts the left margin */
-    margin-right: auto; /* Automatically adjusts the right margin */
-    max-width: 90%; /* Prevents the carousel from becoming too wide */
+.carousel-container {
+    position: relative; /* This will be the reference for absolutely positioned children */
+    width: 800px; /* Adjust to the width of your images or desired width */
+    height: 450px; /* Adjust to the height of your images or desired height */
+    margin: 20px auto; /* Center the container */
+    overflow: hidden; /* Prevent images from overflowing the container */
 }
 
-.carousel-container
-{
-    display: flex;
-    justify-content: center;
-    width: 100%; /* Ensures the container spans the full width of its parent */
+.carousel-images img {
+    position: absolute; /* Absolutely position images to stack them */
+    top: 0;
+    left: 0;
+    width: 100%; /* Images will stretch to the container width */
+    height: auto; /* Images will maintain their aspect ratio */
+    display: none; /* Hide images by default */
 }
 
-.carousel-caption
-{
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-    color: white; /* White text */
-    padding: 10px; /* Some padding */
-    border-radius: 5px; /* Rounded corners */
-    bottom: 10%; /* Position from the bottom of the carousel item */
+/* This will ensure the first image and description are displayed initially */
+.carousel-images img:first-child,
+.carousel-descriptions .description:first-child {
+    display: block;
 }
 
-.carousel-descriptions
-{
-    text-align: center;
-    margin-top: 20px; /* Adjust as needed */
+.carousel-descriptions {
+    position: absolute; /* Position the descriptions over the images */
+    bottom: 10%; /* Position from the bottom of the carousel container */
+    left: 50%;
+    transform: translateX(-50%); /* Center the descriptions */
+    width: 100%; /* Match the width of the carousel container */
+    display: none; /* Hide descriptions by default */
 }
 
 .description
@@ -162,7 +195,6 @@ footer
     color: white;
     text-align: center;
 }
-
 /* Services Page */
 #servicesAccordion .card
 {
@@ -349,4 +381,41 @@ img.hover-shadow {
 
 #ul li a:hover:not(.header) {
     background-color: #eee;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--dark-bg-color); /* Use CSS Variables for colors */
+    padding: 0 25px;
+}
+
+.navbar-brand {
+    font-style: italic;
+    font-weight: bold;
+}
+
+/* Responsive navigation menu */
+@media (max-width: 768px) {
+    .navbar-collapse {
+        flex-direction: column;
+    }
+}
+
+header {
+    transition: height 0.3s ease; /* Smooth transition for header height */
+}
+
+/* Example media query for smaller screens */
+@media (max-width: 768px) {
+    header {
+        height: auto; /* Adjust based on content */
+    }
+    .navbar-collapse {
+        display: none; /* Initially hide the menu */
+    }
+    .navbar-collapse.show {
+        display: block; /* Show menu when toggled */
+    }
 }

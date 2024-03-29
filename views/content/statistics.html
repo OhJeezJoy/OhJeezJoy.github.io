@@ -1,24 +1,33 @@
-<!-- Author: Ramiyan Gangatharan, February 24, 2024 -->
-<!-- Assignment 2 - Web Development Client Side Scripting -->
+<!-- Author: Joy Tejada (100883359)
+     Date: 2024-02-24
+     Note: All pictures are named with the photographer, obtained from unsplash
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Fact of the Day!</title>
+    <title>Gallery</title>
     <link href="../../../../OneDrive/Desktop/School/2024%20Winter/Web%20Dev%20-%20Client%20Side%20Script/Assignment%203/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../../../OneDrive/Desktop/School/2024%20Winter/Web%20Dev%20-%20Client%20Side%20Script/Assignment%203/node_modules/@fortawesome/fontawesome-free/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
     <link href="../../Content/style.css" rel="stylesheet">
+
 </head>
-<body class="d-flex flex-column min-vh-100">
 <header id="site-header"></header>
+<body class="d-flex flex-column min-vh-100">
+<!--  Modal help from w3school.com  -->
 <main class="flex-fill">
-    <h1>Fact of the Day</h1>
-    <div class="col-md-6 mx-auto text-wrap overflow-auto">
-        <p><span id="fact-of-the-day"></span></p>
+    <div id="Header_Blog">
+        <h1>Statistics</h1>
     </div>
+    <!--Where the Chart is going to be placed-->
+    <canvas id="pie-chart" style="width:100%;max-width:700px"></canvas>
 </main>
+
 <footer id="site-footer" style="text-align: center; color: white"></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <script src="../../Scripts/main.js"></script>
 <script src="../../../../OneDrive/Desktop/School/2024%20Winter/Web%20Dev%20-%20Client%20Side%20Script/Assignment%203/node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../../../../OneDrive/Desktop/School/2024%20Winter/Web%20Dev%20-%20Client%20Side%20Script/Assignment%203/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
